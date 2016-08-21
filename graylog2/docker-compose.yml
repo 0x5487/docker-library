@@ -1,14 +1,14 @@
 some-mongo:
-  image: "mongo:3"
+  image: "mongo:3.3.11"
 some-elasticsearch:
-  image: "elasticsearch:2"
+  image: "elasticsearch:2.3.5"
   command: "elasticsearch -Des.cluster.name='graylog'"
 graylog:
-  image: graylog2/server:2.0.0-1
+  image: graylog2/server:2.1.0-beta.4-1
   environment:
     GRAYLOG_PASSWORD_SECRET: somepasswordpepper
     GRAYLOG_ROOT_PASSWORD_SHA2: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
-    GRAYLOG_REST_TRANSPORT_URI: http://192.168.1.2:12900
+    GRAYLOG_REST_TRANSPORT_URI: http://192.168.1.1:12900
   links:
     - some-mongo:mongo
     - some-elasticsearch:elasticsearch
