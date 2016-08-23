@@ -1,0 +1,9 @@
+Redis:
+  image: redis:3.2.3
+  ports:
+    - "6379:6379"
+  volumes:
+    - /srv/docker/redis:/data
+    - /srv/docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+  command: "redis-server /usr/local/etc/redis/redis.conf"
+  restart: always
