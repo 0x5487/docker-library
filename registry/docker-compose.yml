@@ -1,7 +1,10 @@
-Redis:
+registry:
   image: registry:2
   ports:
     - "5000:5000"
   volumes:
     - /srv/docker/registry:/var/lib/registry
+  environment:
+    REGISTRY_HTTP_TLS_CERTIFICATE: /var/lib/registry/cert.crt
+    REGISTRY_HTTP_TLS_KEY: /var/lib/registry/key.pem
   restart: always
