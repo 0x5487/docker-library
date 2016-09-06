@@ -1,0 +1,8 @@
+Bifrost:
+  image: jasonsoft/bifrost:0.5.1
+  ports:
+    - "10080:10080"
+    - "10081:10081"
+  volumes:
+    - /srv/docker/bifrost/config.conf:/opt/bifrost/config.conf
+  restart: always
