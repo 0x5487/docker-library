@@ -4,5 +4,5 @@ Bifrost:
     - "10080:10080"
     - "10081:10081"
   volumes:
-    - /srv/docker/bifrost/config.conf:/jasonsoft/bifrost/config.conf
+    - /srv/docker/bifrost/config.yml:/jasonsoft/bifrost/config.yml
   restart: always
