@@ -1,5 +1,5 @@
 Bifrost:
-  image: jasonsoft/bifrost:0.5.2
+  image: jasonsoft/bifrost:latest
   ports:
     - "10080:10080"
     - "10081:10081"
