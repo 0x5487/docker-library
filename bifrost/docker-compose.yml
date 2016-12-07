@@ -1,7 +1,7 @@
 Bifrost:
   image: jasonsoft/bifrost:latest
   ports:
-    - "10080:10080"
+    - "10080:80"
     - "10081:10081"
   volumes:
     - /srv/docker/bifrost/config.yml:/jasonsoft/bifrost/config.yml
