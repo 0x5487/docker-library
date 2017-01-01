@@ -1,0 +1,11 @@
+some-elasticsearch:
+  image: "elasticsearch:5.1.1"
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+some-kibana:
+  image: "kibana:5.1.1"
+  links:
+    - some-elasticsearch:elasticsearch
+  ports:
+    - "5601:5601"
