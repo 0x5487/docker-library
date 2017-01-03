@@ -3,9 +3,13 @@ some-elasticsearch:
   ports:
     - "9200:9200"
     - "9300:9300"
+  volumes:
+    - /srv/docker/elasticsearch/elasticsearch:/usr/share/elasticsearch/data
+  restart: always
 some-kibana:
   image: "kibana:5.1.1"
   links:
     - some-elasticsearch:elasticsearch
   ports:
     - "5601:5601"
+  restart: always

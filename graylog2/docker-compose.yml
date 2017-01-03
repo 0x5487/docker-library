@@ -2,11 +2,13 @@ some-mongo:
   image: "mongo:3.3.11"
   volumes:
     - /srv/docker/graylog/mongo:/data/db
+  restart: always
 some-elasticsearch:
   image: "elasticsearch:2.3.5"
   command: "elasticsearch -Des.cluster.name='graylog'"
   volumes:
     - /srv/docker/graylog/elasticsearch:/usr/share/elasticsearch/data
+  restart: always
 graylog:
   image: graylog2/server:2.1.0-1
   volumes:
@@ -23,3 +25,4 @@ graylog:
     - "12900:12900"
     - "12201:12201"
     - "12201:12201/udp"
+  restart: always
