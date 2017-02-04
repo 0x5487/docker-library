@@ -1,15 +1,36 @@
-some-elasticsearch:
-  image: "elasticsearch:5.1.1"
-  ports:
-    - "9200:9200"
-    - "9300:9300"
-  volumes:
-    - /srv/docker/elasticsearch/elasticsearch:/usr/share/elasticsearch/data
-  restart: always
-some-kibana:
-  image: "kibana:5.1.1"
-  links:
-    - some-elasticsearch:elasticsearch
-  ports:
-    - "5601:5601"
-  restart: always
+version: '2'
+services:
+  some-elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.1.1
+    container_name: some-elasticsearch
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    mem_limit: 1g
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - /srv/docker/elasticsearch/elasticsearch:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - esnet
+    restart: always
+  some-kibana:
+    image: "kibana:5.1.1"
+    links:
+      - some-elasticsearch:elasticsearch
+    ports:
+      - "5601:5601"
+    restart: always
+networks:
+  esnet:
+    driver: bridge
