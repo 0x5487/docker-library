@@ -1,8 +1,7 @@
 version: '2'
 services:
-  some-elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.1.1
-    container_name: some-elasticsearch
+  elasticsearch:
+    image: elasticsearch:5.2.0-alpine
     environment:
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
@@ -24,12 +23,12 @@ services:
     networks:
       - esnet
     restart: always
-  some-kibana:
-    image: "kibana:5.1.1"
-    links:
-      - some-elasticsearch:elasticsearch
+  kibana:
+    image: kibana:5.2.0-alpine
     ports:
       - "5601:5601"
+    networks:
+      - esnet
     restart: always
 networks:
   esnet:
