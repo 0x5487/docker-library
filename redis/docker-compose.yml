@@ -1,9 +1,13 @@
-Redis:
-  image: redis:3.2.3
-  ports:
-    - "6379:6379"
-  volumes:
-    - /srv/docker/redis:/data
-    - /srv/docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
-  command: "redis-server /usr/local/etc/redis/redis.conf"
-  restart: always
+version: '2.1'
+services:
+  redis:
+    image: redis:3.2.7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - /srv/docker/redis:/data
+      - /srv/docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command: "redis-server /usr/local/etc/redis/redis.conf"
+    sysctls:
+      - net.core.somaxconn=1024
+    restart: always

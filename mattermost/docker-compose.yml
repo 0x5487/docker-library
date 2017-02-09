@@ -1,0 +1,7 @@
+mattermost:
+  image: mattermost/mattermost-preview
+  ports:
+    - "10.200.252.104:80:8065"
+  volumes:
+    - /srv/docker/mattermost:/mm/mattermost-data
+  restart: always

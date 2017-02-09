@@ -23,7 +23,7 @@ services:
                     memory: 256M
             # service restart policy
             restart_policy:
-                condition: on-failure
+                condition: any
                 delay: 5s
                 max_attempts: 3
                 window: 120s
@@ -31,12 +31,12 @@ services:
             update_config:
                 parallelism: 1
                 delay: 10s
-                failure_action: continue
-                monitor: 60s
-                max_failure_ratio: 0.3
+                failure_action: pause
             # placement constraint - in this case on 'worker' nodes only
-            # placement:
-                #constraints: [node.role == worker]
+            #placement:
+                #constraints: 
+                   # - node.role == worker
+                   # - node.labels.com.type == cm
 
 networks:
   skynet:
