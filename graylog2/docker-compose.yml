@@ -1,28 +1,39 @@
-some-mongo:
-  image: "mongo:3.3.11"
-  volumes:
-    - /srv/docker/graylog/mongo:/data/db
-  restart: always
-some-elasticsearch:
-  image: "elasticsearch:2.3.5"
-  command: "elasticsearch -Des.cluster.name='graylog'"
-  volumes:
-    - /srv/docker/graylog/elasticsearch:/usr/share/elasticsearch/data
-  restart: always
-graylog:
-  image: graylog2/server:2.1.0-1
-  volumes:
-    - /srv/docker/graylog/graylog/journal:/usr/share/graylog/data/journal
-  environment:
-    GRAYLOG_PASSWORD_SECRET: somepasswordpepper
-    GRAYLOG_ROOT_PASSWORD_SHA2: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
-    GRAYLOG_REST_TRANSPORT_URI: http://192.168.1.1:12900
-  links:
-    - some-mongo:mongo
-    - some-elasticsearch:elasticsearch
-  ports:
-    - "9000:9000"
-    - "12900:12900"
-    - "12201:12201"
-    - "12201:12201/udp"
-  restart: always
+version: '2'
+services:
+  mongo:
+    image: "mongo:3"
+    volumes:
+      - /srv/docker/graylog/mongo:/data/db
+    networks:
+      - skynet
+    restart: always
+  elasticsearch:
+    image: "elasticsearch:2"
+    command: "elasticsearch -Des.cluster.name='graylog'"
+    volumes:
+      - /srv/docker/graylog/elasticsearch:/usr/share/elasticsearch/data
+    networks:
+      - skynet
+    restart: always
+  graylog:
+    image: graylog2/server:2.2.1-1
+    volumes:
+      - /srv/docker/graylog/graylog/journal:/usr/share/graylog/data/journal
+    environment:
+      GRAYLOG_PASSWORD_SECRET: somepasswordpepper
+      GRAYLOG_ROOT_PASSWORD_SHA2: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+      GRAYLOG_WEB_ENDPOINT_URI: http://192.168.1.1/api
+      #GRAYLOG_REST_TRANSPORT_URI: http://192.168.1.1:12900
+    networks:
+      - skynet
+    ports:
+      - "9000:9000"
+      - "12900:12900"
+      - "12201:12201"
+      - "12201:12201/udp"
+    restart: always
+
+
+networks:
+  skynet:
+    driver: bridge
