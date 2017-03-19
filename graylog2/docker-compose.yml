@@ -16,7 +16,7 @@ services:
       - skynet
     restart: always
   graylog:
-    image: graylog2/server:2.2.1-1
+    image: graylog2/server:2.2.2-1
     volumes:
       - /srv/docker/graylog/graylog/journal:/usr/share/graylog/data/journal
     environment:
