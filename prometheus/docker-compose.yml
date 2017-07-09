@@ -1,0 +1,44 @@
+version: '3.3'
+services:
+  my-prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - /srv/docker/prometheus/prometheus:/etc/prometheus/
+      - /srv/docker/prometheus/prometheus_data:/prometheus
+    command:
+      - '-config.file=/etc/prometheus/prometheus.yml'
+      - '-storage.local.path=/prometheus'
+      - '-storage.local.memory-chunks=100000'
+    ports:
+      - target: 9090
+        published: 9090
+        protocol: tcp
+        mode: host
+    restart: always
+
+  my-nodeexporter:
+    image: prom/node-exporter
+    container_name: nodeexporter
+    restart: always
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    ports:
+      - 9100:9100
+
+  my-grafana:
+    image: grafana/grafana
+    container_name: grafana
+    volumes:
+      - /srv/docker/grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=changeme
+      - GF_USERS_ALLOW_SIGN_UP=false
+    restart: always
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
