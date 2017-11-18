@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   mongo:
     image: "mongo:3"
@@ -8,8 +8,15 @@ services:
       - skynet
     restart: always
   elasticsearch:
-    image: "elasticsearch:2"
-    command: "elasticsearch -Des.cluster.name='graylog'"
+    image: "elasticsearch:5.5"
+    environment:
+      - cluster.name=graylog
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
     volumes:
       - /srv/docker/graylog/elasticsearch:/usr/share/elasticsearch/data
     networks:
@@ -25,7 +32,6 @@ services:
       GRAYLOG_ROOT_TIMEZONE: Asia/Taipei
       GRAYLOG_WEB_ENDPOINT_URI: http://192.168.1.1/api
       GRAYLOG_ELASTICSEARCH_HOSTS: http://elasticsearch:9200
-      #GRAYLOG_REST_TRANSPORT_URI: http://192.168.1.1:12900
     networks:
       - skynet
     ports:
