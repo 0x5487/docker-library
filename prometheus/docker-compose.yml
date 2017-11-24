@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   my-prometheus:
-    image: prom/prometheus
+    image: prom/prometheus:v2.0.0
     container_name: prometheus
     volumes:
       - /srv/docker/prometheus/prometheus:/etc/prometheus/
@@ -9,7 +9,7 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
-      - '--storage.local.memory-chunks=100000'
+      - '--storage.tsdb.retention=15d'
     ports:
       - target: 9090
         published: 9090
@@ -38,7 +38,7 @@ services:
       - '-config.file=/etc/alertmanager/config.yml'
       - '-storage.path=/alertmanager'
   my-grafana:
-    image: grafana/grafana
+    image: grafana/grafana:4.6.2
     container_name: grafana
     volumes:
       - /srv/docker/grafana:/var/lib/grafana
