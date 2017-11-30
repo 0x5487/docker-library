@@ -1,0 +1,37 @@
+groups:
+- name: example
+  rules:
+
+  # Alert for any instance that is unreachable for >5 minutes.
+  - alert: service_down
+    expr: up == 0
+    for: 2m
+    labels:
+      severity: page
+    annotations:
+      summary: "Instance {{ $labels.instance }} down"
+      description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 2 minutes."
+      title: "service_down"
+      color: "#ff0000"
+
+  - alert: high_cpu
+    expr: 100 - (avg by (instance) (irate(node_cpu{mode="idle"}[3m])) * 100) > 80
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: "Instance {{ $labels.instance }} under high cpu load"
+      description: "{{ $labels.instance }} of job {{ $labels.job }} is under high cpu load."
+      title: "high_cpu"
+      color: "#ff0000"
+
+  - alert: high_memory
+    expr: 100 - ((node_memory_MemFree+node_memory_Cached+node_memory_Buffers)/node_memory_MemTotal) * 100 > 80
+    for: 30s
+    labels:
+      severity: page
+    annotations:
+      summary: "Instance {{ $labels.instance }} under high memory used.."
+      description: "{{ $labels.instance }} of job {{ $labels.job }} is under high memory used.."
+      title: "hight_memory"
+      color: "#ff0000"

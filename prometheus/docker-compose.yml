@@ -10,6 +10,7 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
       - '--storage.tsdb.retention=15d'
+      - '--web.enable-lifecycle'
     ports:
       - target: 9090
         published: 9090

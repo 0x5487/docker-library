@@ -1,17 +1,21 @@
 version: '3'
 services:
   mongo:
-    image: "mongo:3"
+    image: "mongo:3.4"
     volumes:
       - /srv/docker/graylog/mongo:/data/db
     networks:
       - skynet
     restart: always
+    user: root
   elasticsearch:
-    image: "elasticsearch:5.5"
+    image: "elasticsearch:5.6.4"
     environment:
       - cluster.name=graylog
       - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
+      - xpack.watcher.enabled=false
+      - xpack.ml.enabled=false
       - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
     ulimits:
       memlock:

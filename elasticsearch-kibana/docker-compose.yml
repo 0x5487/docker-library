@@ -6,6 +6,8 @@ services:
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
       - xpack.security.enabled=false
+      - xpack.watcher.enabled=false
+      - xpack.ml.enabled=false
       - "ES_JAVA_OPTS=-Xms2g -Xmx2g"
     ulimits:
       memlock:
