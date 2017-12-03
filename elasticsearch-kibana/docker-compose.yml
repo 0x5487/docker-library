@@ -17,10 +17,13 @@ services:
       - /srv/docker/elasticsearch/elasticsearch:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
-    mem_limit: 4g
     networks:
       - esnet
     restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 12g
   kibana:
     image: kibana:5.6.4
     ports:
