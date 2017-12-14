@@ -37,3 +37,16 @@ groups:
       description: "{{ $labels.instance }} of job {{ $labels.job }} is under high memory used.."
       title: "hight_memory"
       color: "#ff0000"
+
+- name: blackbox
+  rules:
+  - alert: probe_failing
+    expr: probe_success < 1
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "probe {{$labels.job}} failing"
+      description: "probe {{$labels.job}} failing"
+      title: "probe_failing"
+      color: "#ff0000"

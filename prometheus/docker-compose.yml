@@ -33,7 +33,7 @@ services:
     ports:
       - 9093:9093
     volumes:
-      - /srv/docker/prometheus/alertmanager/:/etc/alertmanager/
+      - /srv/docker/alertmanager:/etc/alertmanager/
     restart: always
     command:
       - '-config.file=/etc/alertmanager/config.yml'
@@ -52,3 +52,12 @@ services:
       - 3000
     ports:
       - 3000:3000
+  my-blackbox-exporter:
+    image: prom/blackbox-exporter
+    ports:
+      - "9115:9115"
+    restart: always
+    volumes:
+      - "/srv/docker/blackbox/config:/config"
+    command: 
+      - '--config.file=/config/blackbox.yml'
