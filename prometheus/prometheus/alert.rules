@@ -5,7 +5,7 @@ groups:
   # Alert for any instance that is unreachable for 1 minute.
   - alert: monitor_service_down
     expr: up == 0
-    for: 1m
+    for: 3m
     labels:
       severity: critical
     annotations:
@@ -18,7 +18,7 @@ groups:
   rules:
   - alert: high_cpu
     expr: 100 - (avg by (instance) (irate(node_cpu{mode="idle"}[3m])) * 100) > 80
-    for: 1m
+    for: 5m
     labels:
       severity: critical
     annotations:
@@ -29,7 +29,7 @@ groups:
 
   - alert: high_memory
     expr: 100 - ((node_memory_MemFree+node_memory_Cached+node_memory_Buffers)/node_memory_MemTotal) * 100 > 80
-    for: 30s
+    for: 5m
     labels:
       severity: critical
     annotations:

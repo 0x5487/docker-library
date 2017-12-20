@@ -47,6 +47,11 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=changeme
       - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SMTP_ENABLED=false
+      - GF_SMTP_HOST=mail.xyz.com:25
+      - GF_SMTP_FROM_ADDRESS=prometheus@xyz.com
+      - GF_SMTP_USER=XXXX
+      - GF_SMTP_PASSWORD=xxxx
     restart: always
     expose:
       - 3000
