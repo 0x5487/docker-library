@@ -4,17 +4,38 @@ global:
     smtp_from: ''
     smtp_auth_username: ''
     smtp_auth_password: ''
+    smtp_require_tls: false
+    smtp_auth_secret: null
+    smtp_auth_identity: ""
+    resolve_timeout: 10s
 
 templates:
     - '/etc/alertmanager/template/*.tmpl'
 
 route:
-    receiver: 'slack'
+    routes:
+    - receiver: 'critical-notify'
+      match_re:
+        severity: critical
+      continue: true 
+
+    receiver: 'default-receiver'
 
 receivers:
-    - name: 'slack'
+    - name: 'default-receiver'
       slack_configs:
           - send_resolved: true
-            username: ''
+            username: 'prom'
             channel: ''
             api_url: ''
+
+    - name: 'critical-notify'
+      slack_configs:
+          - send_resolved: true
+            username: 'prom'
+            channel: ''
+            api_url: ''
+
+      email_configs:
+          - send_resolved: true
+            to: 'xxx@abc.com, xyz@abc.com'
