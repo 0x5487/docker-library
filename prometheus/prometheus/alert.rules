@@ -38,6 +38,18 @@ groups:
       title: "hight_memory"
       color: "#ff0000"
 
+  - alert: low_disk_space 
+    expr: 100 - node_filesystem_free{device="rootfs", job="node",fstype!='xfs',mountpoint="/"}/ node_filesystem_size{device="rootfs", job="node", fstype!='xfs',mountpoint="/"} * 100 > 80
+    for: 5m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Disk space on {{ $labels.instance }} lower than 20%"
+      description: "Disk space on {{$labels.instance}} lower than 20%"
+      title: "low_disk_space"
+      color: "#ff0000"
+
+
 - name: blackbox
   rules:
   - alert: probe_failing

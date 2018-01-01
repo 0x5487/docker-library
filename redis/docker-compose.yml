@@ -7,5 +7,7 @@ services:
     volumes:
       - /srv/docker/redis:/data
       - /srv/docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    sysctls:
+      net.core.somaxconn: 65535
     command: "redis-server /usr/local/etc/redis/redis.conf"
     restart: always
