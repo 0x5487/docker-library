@@ -7,4 +7,5 @@ registry:
   environment:
     REGISTRY_HTTP_TLS_CERTIFICATE: /var/lib/registry/cert.crt
     REGISTRY_HTTP_TLS_KEY: /var/lib/registry/key.pem
+    REGISTRY_STORAGE_DELETE_ENABLED: true
   restart: always
