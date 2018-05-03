@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   cockroachdb-1:
-    image: cockroachdb/cockroach:v1.1.6
+    image: cockroachdb/cockroach:v2.0.1
     ports:
       - 8080:8080
       - 26257:26257

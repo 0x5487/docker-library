@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   my-prometheus:
-    image: prom/prometheus:v2.0.0
+    image: prom/prometheus:v2.2.1
     container_name: prometheus
     volumes:
       - /srv/docker/prometheus/prometheus:/etc/prometheus/
@@ -39,7 +39,7 @@ services:
       - '-config.file=/etc/alertmanager/config.yml'
       - '-storage.path=/alertmanager'
   my-grafana:
-    image: grafana/grafana:4.6.2
+    image: grafana/grafana:5.0.4
     container_name: grafana
     volumes:
       - /srv/docker/grafana:/var/lib/grafana
