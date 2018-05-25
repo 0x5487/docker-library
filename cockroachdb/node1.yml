@@ -1,0 +1,13 @@
+version: "3.4"
+services:
+  cockroachdb-1:
+    image: cockroachdb/cockroach:v2.0.2
+    ports:
+      - 8080:8080
+      - 26257:26257
+    volumes:
+      - /srv/docker/cockroachdb/roach1:/cockroach/cockroach-data
+    command: "start --insecure --join=10.200.252.105:26257,10.200.252.105:26258,10.200.252.105:26259"
+    restart: always
+    network_mode: host
+
