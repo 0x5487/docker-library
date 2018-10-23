@@ -1,10 +1,11 @@
 version: '3.3'
 services:
   db:
-    image: mysql:5.7.21
+    image: mysql:5.7.22
     restart: always
     volumes:
-      - "/srv/docker/mysql:/var/lib/mysql"
+      - "/srv/docker/mysql/conf:/etc/mysql/conf.d"
+      - "/srv/docker/mysql/data:/var/lib/mysql"
     ports:
       - "3306:3306"
     environment:

@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   cockroachdb-2:
-      image: cockroachdb/cockroach:v2.0.2
+      image: cockroachdb/cockroach:v2.0.3
       ports:
         - 26258:26258
       volumes:
