@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   my-prometheus:
-    image: prom/prometheus:v2.2.1
+    image: prom/prometheus:v2.5.0
     container_name: prometheus
     volumes:
       - /srv/docker/prometheus/prometheus:/etc/prometheus/
@@ -19,7 +19,7 @@ services:
     restart: always
     user: root
   my-nodeexporter:
-    image: prom/node-exporter
+    image: prom/node-exporter:0.16.0
     container_name: nodeexporter
     restart: always
     volumes:
@@ -29,17 +29,17 @@ services:
     ports:
       - 9100:9100
   my-alertmanager:
-    image: prom/alertmanager
+    image: prom/alertmanager:0.15.3
     ports:
       - 9093:9093
     volumes:
       - /srv/docker/alertmanager:/etc/alertmanager/
     restart: always
     command:
-      - '-config.file=/etc/alertmanager/config.yml'
-      - '-storage.path=/alertmanager'
+      - '--config.file=/etc/alertmanager/config.yml'
+      - '--storage.path=/alertmanager'
   my-grafana:
-    image: grafana/grafana:5.0.4
+    image: grafana/grafana:5.3.2
     container_name: grafana
     volumes:
       - /srv/docker/grafana:/var/lib/grafana
