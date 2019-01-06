@@ -1,13 +1,15 @@
 version: "3.4"
 services:
   cockroachdb-1:
-    image: cockroachdb/cockroach:v2.0.2
+    image: cockroachdb/cockroach:v2.0.3
     ports:
       - 8080:8080
       - 26257:26257
+    environment:
+      - COCKROACH_SKIP_KEY_PERMISSION_CHECK=true
     volumes:
       - /srv/docker/cockroachdb/roach1:/cockroach/cockroach-data
-    command: "start --insecure --join=10.200.252.105:26257,10.200.252.105:26258,10.200.252.105:26259"
+    command: "start --host 192.168.0.1 --port 26257 --http-port=8080 --join=192.168.0.1:26257,192.168.0.1:26258,192.168.0.1:26259"
     restart: always
     network_mode: host
 

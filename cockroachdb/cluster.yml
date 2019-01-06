@@ -1,7 +1,7 @@
 version: "3.4"
 services:
   cockroachdb-1:
-    image: cockroachdb/cockroach:v2.0.0
+    image: cockroachdb/cockroach:v2.0.3
     ports:
       - 8080:8080
       - 26257:26257
@@ -12,7 +12,7 @@ services:
     command: "start --insecure --join=cockroachdb-1:26257,cockroachdb-2:26257,cockroachdb-3:26257"
     restart: always
   cockroachdb-2:
-    image: cockroachdb/cockroach:v2.0.0
+    image: cockroachdb/cockroach:v2.0.3
     ports:
       - 26258:26257
     networks:
@@ -22,7 +22,7 @@ services:
     command: "start --insecure --join=cockroachdb-1:26257,cockroachdb-2:26257,cockroachdb-3:26257"
     restart: always
   cockroachdb-3:
-    image: cockroachdb/cockroach:v2.0.0
+    image: cockroachdb/cockroach:v2.0.3
     ports:
       - 26259:26257
     networks:
