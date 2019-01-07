@@ -1,0 +1,16 @@
+version: '3'
+services:
+  Rancher:
+    image: rancher/rancher:v2.1.5
+    network_mode: "host"
+    container_name: rancher_v2.1.5
+    restart: unless-stopped
+    volumes:
+      - /srv/docker/rancher/data:/var/lib/rancher
+      - /srv/docker/rancher/log:/var/log/auditlog
+    environment:
+      - AUDIT_LEVEL=3
+      - AUDIT_LOG_PATH=/var/log/auditlog/rancher-api-audit.log
+      - AUDIT_LOG_MAXAGE=20
+      - AUDIT_LOG_MAXBACKUP=30
+      - AUDIT_LOG_MAXSIZE=1000
