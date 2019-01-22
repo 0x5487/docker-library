@@ -1,7 +1,7 @@
 version: '3'
 services:
   mongo:
-    image: "mongo:3.4"
+    image: "mongo:3"
     volumes:
       - /srv/docker/graylog/mongo:/data/db
     networks:
@@ -27,7 +27,7 @@ services:
       - skynet
     restart: always
   graylog:
-    image: graylog2/server:2.3.2-2
+    image: graylog/graylog:2.5.1-2
     volumes:
       - /srv/docker/graylog/graylog/journal:/usr/share/graylog/data/journal
     environment:
