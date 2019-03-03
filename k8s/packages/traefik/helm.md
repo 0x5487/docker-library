@@ -1,0 +1,1 @@
+helm install stable/traefik --name traefik --set dashboard.enabled=true,serviceType=NodePort,dashboard.domain=jason.local,rbac.enabled=true --version 1.61.1   --namespace kube-system
