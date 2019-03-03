@@ -1,0 +1,13 @@
+version: '3'
+services:
+  chartmuseum:
+    image: chartmuseum/chartmuseum:latest
+    ports:
+      - 18080:8080
+    volumes:
+      - /srv/docker/chartmuseum:/charts
+    environment:
+      - DEBUG=true
+      - STORAGE=local
+      - STORAGE_LOCAL_ROOTDIR=/charts
+
