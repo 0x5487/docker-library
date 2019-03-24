@@ -8,14 +8,14 @@ services:
       - graylog
     restart: always
   elasticsearch:
-    image: "docker.elastic.co/elasticsearch/elasticsearch-oss:6.6.1"
+    image: "docker.elastic.co/elasticsearch/elasticsearch-oss:6.6.2"
     environment:
       - cluster.name=graylog
       - bootstrap.memory_lock=true
       - http.host=0.0.0.0
       - transport.host=localhost
       - network.host=0.0.0.0
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      - "ES_JAVA_OPTS=-Xms4g -Xmx4g"
     ulimits:
       memlock:
       soft: -1
@@ -26,14 +26,14 @@ services:
       - graylog
     restart: always
   graylog:
-    image: "graylog/graylog:2.5"
+    image: "graylog/graylog:3.0"
     volumes:
       - /srv/docker/graylog/graylog/journal:/usr/share/graylog/data/journal
     environment:
       - GRAYLOG_PASSWORD_SECRET=somepasswordpepper
       - GRAYLOG_ROOT_PASSWORD_SHA2=8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
       - GRAYLOG_ROOT_TIMEZONE=Asia/Taipei
-      - GRAYLOG_WEB_ENDPOINT_URI=http://192.168.1.1:9000/api
+      - GRAYLOG_HTTP_EXTERNAL_URI=http://192.168.0.1:9000/
     networks:
       - graylog
     depends_on:
@@ -41,7 +41,6 @@ services:
       - elasticsearch
     ports:
       - "9000:9000"
-      - "12900:12900"
       - "12201:12201"
       - "12201:12201/udp"
     restart: always
