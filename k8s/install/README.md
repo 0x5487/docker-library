@@ -4,12 +4,17 @@
    yum makecache fast
    yum install -y kubeadm-1.12.6 kubelet-1.12.6 kubectl-1.12.6 --disableexclude=kube*
    ```
-
+   yum install -y kubectl-1.12.6 --disableexclude=kube*
 
 kubeadm init \
   --kubernetes-version=v1.12.6 \
   --pod-network-cidr=10.244.0.0/16 \
   --apiserver-advertise-address=192.168.137.48
+
+kubeadm init \
+  --kubernetes-version=v1.12.6 \
+  --pod-network-cidr=10.244.0.0/16 \
+  --apiserver-advertise-address=10.1.1.183
 
 
 
@@ -22,6 +27,7 @@ kubectl delete -f  https://raw.githubusercontent.com/coreos/flannel/master/Docum
 
 ### master accept job
 kubectl taint nodes jason.local node-role.kubernetes.io/master-
+kubectl taint nodes k8s03 node-role.kubernetes.io/master-
 
 
 1. 修復 coreDNS loop 問題
