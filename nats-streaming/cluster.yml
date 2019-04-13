@@ -1,0 +1,123 @@
+version: '3'
+services:
+  nats-streaming-1:
+    image: nats-streaming:0.12.2
+    container_name: nats-streaming-1
+    command: >
+      --store file 
+      --dir /datastore 
+      --file_sync
+      --cluster_id nats-streaming-cluster  
+      --clustered 
+      --cluster_bootstrap 
+      --cluster_log_path=/datastore/log 
+      --cluster_node_id nats-streaming-1 
+      --cluster_peers nats-streaming-1,nats-streaming-2,nats-streaming-3 
+      --cluster=nats://0.0.0.0:6222 
+      --routes=nats://nats-streaming-1:6222,nats://nats-streaming-2:6222,nats://nats-streaming-3:6222 
+      --http_port 8222 
+    volumes:
+    - ./datastore-1:/datastore
+    ports:
+    - 4222:4222
+    - 8222:8222
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+  nats-streaming-2:
+    image: nats-streaming:0.12.2
+    container_name: nats-streaming-2
+    command: >
+      --store file 
+      --dir /datastore
+      --file_sync
+      --cluster_id nats-streaming-cluster 
+      --clustered
+      --cluster_log_path=/datastore/log 
+      --cluster_node_id nats-streaming-2 
+      --cluster_peers nats-streaming-1,nats-streaming-2,nats-streaming-3 
+      --cluster=nats://0.0.0.0:6222 
+      --routes=nats://nats-streaming-1:6222,nats://nats-streaming-2:6222,nats://nats-streaming-3:6222 
+      --http_port 8222 
+    volumes:
+    - ./datastore-2:/datastore
+    ports:
+    - 4223:4222
+    - 8223:8222
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+  nats-streaming-3:
+    image: nats-streaming:0.12.2
+    container_name: nats-streaming-3
+    command: >
+      --store file 
+      --dir /datastore
+      --file_sync
+      --cluster_id nats-streaming-cluster 
+      --clustered
+      --cluster_log_path=/datastore/log 
+      --cluster_node_id nats-streaming-3 
+      --cluster_peers nats-streaming-1,nats-streaming-2,nats-streaming-3 
+      --cluster=nats://0.0.0.0:6222 
+      --routes=nats://nats-streaming-1:6222,nats://nats-streaming-2:6222,nats://nats-streaming-3:6222 
+      --http_port 8222 
+    volumes:
+    - ./datastore-3:/datastore
+    ports:
+    - 4224:4222
+    - 8224:8222
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+  # nats-streaming-4:
+  #   image: nats-streaming:0.12.2
+  #   container_name: nats-streaming-4
+  #   command: >
+  #     --store file 
+  #     --dir /datastore
+  #     --file_sync
+  #     --cluster_id nats-streaming-cluster 
+  #     --clustered
+  #     --cluster_log_path=/datastore/log 
+  #     --cluster_node_id nats-streaming-4 
+  #     --cluster_peers nats-streaming-1,nats-streaming-2,nats-streaming-3,nats-streaming-4,nats-streaming-5 
+  #     --cluster=nats://0.0.0.0:6222 
+  #     --routes=nats://nats-streaming-1:6222,nats://nats-streaming-2:6222,nats://nats-streaming-3:6222,nats://nats-streaming-4:6222,nats://nats-streaming-5:6222 
+  #     --http_port 8222 
+  #   volumes:
+  #   - ./datastore-4:/datastore
+  #   ports:
+  #   - 4225:4222
+  #   - 8225:8222
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "5m"
+  # nats-streaming-5:
+  #   image: nats-streaming:0.12.2
+  #   container_name: nats-streaming-5
+  #   command: >
+  #     --store file 
+  #     --dir /datastore
+  #     --file_sync
+  #     --cluster_id nats-streaming-cluster 
+  #     --clustered
+  #     --cluster_log_path=/datastore/log 
+  #     --cluster_node_id nats-streaming-5 
+  #     --cluster_peers nats-streaming-1,nats-streaming-2,nats-streaming-3,nats-streaming-4,nats-streaming-5 
+  #     --cluster=nats://0.0.0.0:6222 
+  #     --routes=nats://nats-streaming-1:6222,nats://nats-streaming-2:6222,nats://nats-streaming-3:6222,nats://nats-streaming-4:6222,nats://nats-streaming-5:6222 
+  #     --http_port 8222 
+  #   volumes:
+  #   - ./datastore-5:/datastore
+  #   ports:
+  #   - 4226:4222
+  #   - 8226:8222
+  #   logging:
+  #     driver: "json-file"
+  #     options:
+  #       max-size: "5m"
