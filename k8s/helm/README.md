@@ -8,3 +8,6 @@ chmod +x  /tmp/linux-amd64/helm && sudo mv /tmp/linux-amd64/helm /usr/local/bin/
 
 #### install tiller
 kubectl apply -f tiller-rbac.yaml
+
+#### init helm
+helm init --service-account tiller --skip-refresh
