@@ -10,4 +10,5 @@ services:
       - DEBUG=true
       - STORAGE=local
       - STORAGE_LOCAL_ROOTDIR=/charts
+      - CHART_URL=http://192.168.1.1:18080
 
