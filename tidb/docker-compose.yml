@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+  tidb:
+    image: pingcap/tidb:latest
+    ports:
+    - "4000:4000"
+    - "10080:10080"
+    volumes:
+    - "./data/tidb/data:/tmp/tidb" 
+    restart: on-failure
