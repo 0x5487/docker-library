@@ -9,7 +9,8 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
-      - '--storage.tsdb.retention=15d'
+      - '--storage.tsdb.retention.time=15d'
+      - '--storage.tsdb.retention.size=0'
       - '--web.enable-lifecycle'
     ports:
       - target: 9090
